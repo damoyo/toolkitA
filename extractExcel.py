@@ -1,31 +1,51 @@
-import  xlrd
+import xlrd
+
+
 # encoding if it contains non ascii coding we need chinese
 # on demand if the databse is too big dont load all
+
+
 def read_excel(file_name):
-    # open workbook
-    workbook = xlrd.open_workbook(file_name, encoding='cp1252', on_demand = True)
-
-    # open worksheet by name
-    worksheet = workbook.sheet_by_name('My_Sheet_Name')
-
-    # open worksheet by index(n)
-    worksheet = workbook.sheet_by_index(0)
-
-    # count number of workbooks
-def number_of_sheets(workbook):
-    no_sheets = workbook.nsheets
-
-    # list of the names of the sheets present in the file
-def names_of_sheets(workbook):
-    sheet_names = workbook.sheet_names()
-
-    # Value of 1st row and 1st column needs to be iterated
-def get_data_cell(sheet):
     """
-    if sheet.cell(0, 0).value == xlrd.empty_cell.value:
-    # Do something
-    :param sheet:
-    :return:
+    Create the excel Object to work on
+    :param file_name:
+    :return: WorkBook Object
     """
+    # open the workbook
+    workbook = xlrd.open_workbook(file_name, on_demand=True)
+    return workbook
 
-    sheet.cell(0, 0).value
+def getnames():
+    a = read_excel("testdata.xlsx")
+    sheet = a.sheet_by_index(0)
+    collen = sheet.get_rows()
+    collen = sheet.get_rows()
+    count = 0
+    for value in collen:
+        print(value[1])
+
+def getid():
+    a = read_excel("testdata.xlsx")
+    sheet = a.sheet_by_index(0)
+    collen = sheet.get_rows()
+    collen = sheet.get_rows()
+    count = 0
+    for value in collen:
+        print (value[0])
+
+def insert_to_database():
+    a = read_excel("testdata.xlsx")
+    sheet = a.sheet_by_index(0)
+    collen = sheet.get_rows()
+    ln = len(list(collen))
+    rowlen = sheet.row_len(0)
+    collen = sheet.get_rows()
+    count = 0
+    for value in collen:
+        sql = "INSERT INTO users(id, name, ID) VALUES(01, %s[0], value[1])" %value
+        print(sql)
+
+
+insert_to_database()
+getnames()
+getid()
